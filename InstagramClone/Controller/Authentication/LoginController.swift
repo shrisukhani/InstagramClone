@@ -29,10 +29,11 @@ class LoginController: UIViewController {
         return tf
     }()
     
-    private let dontHaveAccountButton: UIButton = {
+    private lazy var dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         button.setAttributedTitle(firstPart: "Don't have an account?",
                                   secondPart: "Sign up")
+        button.addTarget(self, action: #selector(handleDontHaveAccountTap), for: .touchUpInside)
         return button
     }()
     
@@ -53,6 +54,11 @@ class LoginController: UIViewController {
         button.setHeight(50)
         return button
     }()
+    
+    // MARK: - Actions
+    @objc func handleDontHaveAccountTap(_ button: UIButton) {
+        navigationController?.pushViewController(RegistrationController(), animated: true)
+    }
     
     // MARK: - Lifecycle
     
@@ -75,7 +81,8 @@ class LoginController: UIViewController {
         iconImage.setDimensions(height: 80, width: 120)
         iconImage.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
         
-        let stack = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, forgotPasswordButton])
+        let stack = UIStackView(arrangedSubviews: [emailTextField, passwordTextField,
+                                                   loginButton, forgotPasswordButton])
         stack.axis = .vertical
         stack.spacing = 20
         

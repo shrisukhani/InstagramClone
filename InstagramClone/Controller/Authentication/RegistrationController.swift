@@ -32,14 +32,18 @@ class RegistrationController: UIViewController {
     
     private let signupButton: UIButton = {
         let button = UIButton(type: .system)
+        button.setTitle("Sign Up", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-        
-        let attrs: [NSAttributedString.Key: Any] = [
-            .foregroundColor: .white,
-            .font: UIFont.boldSystemFont(ofSize: 18)
-        ]
-        let title = NSAttributedString(string: "Sign up", attributes: attrs)
-        button.setAttributedTitle(title, for: .normal)
+        button.setHeight(50)
+        return button
+    }()
+    
+    private let alreadyHaveAnAccountButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.addTarget(self, action: #selector(handleAlreadyHaveAnAccountTap), for: .touchUpInside)
+        button.setAttributedTitle(firstPart: "Already have an account?", secondPart: "Log in")
         return button
     }()
     
@@ -49,6 +53,11 @@ class RegistrationController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+    }
+    
+    // MARK: - Actions
+    @objc func handleAlreadyHaveAnAccountTap(_ button: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Helpers
@@ -62,12 +71,18 @@ class RegistrationController: UIViewController {
         
         // stack
         let stack = UIStackView(arrangedSubviews: [emailTextField, passwordTextField,
-                                                   fullnameTextField, usernameTextField])
+                                                   fullnameTextField, usernameTextField,
+                                                   signupButton])
         stack.axis = .vertical
         stack.spacing = 20
         view.addSubview(stack)
         stack.anchor(top: plusImageButton.bottomAnchor, left: view.leadingAnchor,
-                     right: view.trailingAnchor, paddingTop: 32,
-                     paddingLeft: 32, paddingRight: 32)
+                     paddingTop: 32, paddingLeft: 32)
+        stack.setWidth(view.frame.width - 64)
+        
+        // alreadyHaveAnAccountButton
+        view.addSubview(alreadyHaveAnAccountButton)
+        alreadyHaveAnAccountButton.centerX(inView: view)
+        alreadyHaveAnAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
 }
