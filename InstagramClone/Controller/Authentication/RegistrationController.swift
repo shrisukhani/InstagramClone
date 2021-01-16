@@ -11,6 +11,8 @@ class RegistrationController: UIViewController {
     
     // MARK: - Properties
     
+    private var viewModel: RegistrationViewModel = RegistrationViewModel()
+    
     private let plusImageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo"), for: .normal)
@@ -35,7 +37,9 @@ class RegistrationController: UIViewController {
         button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        button.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1).withAlphaComponent(0.5)
+        button.setTitleColor(.init(white: 1, alpha: 0.67), for: .normal)
+        button.isEnabled = false
         button.setHeight(50)
         return button
     }()
@@ -56,11 +60,29 @@ class RegistrationController: UIViewController {
     }
     
     // MARK: - Actions
+    
     @objc func handleAlreadyHaveAnAccountTap(_ button: UIButton) {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func textDidChange(_ sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else if sender == passwordTextField {
+            viewModel.password = sender.text
+        } else if sender == usernameTextField {
+            viewModel.username = sender.text
+        } else if sender == fullnameTextField {
+            viewModel.fullname = sender.text
+        }
+        
+        signupButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
+        signupButton.backgroundColor = viewModel.buttonBackgroundColor
+        signupButton.isEnabled = viewModel.buttonIsEnabled
+    }
+    
     // MARK: - Helpers
+    
     func configureUI() {
         configureGradientLayer()
         
@@ -84,5 +106,14 @@ class RegistrationController: UIViewController {
         view.addSubview(alreadyHaveAnAccountButton)
         alreadyHaveAnAccountButton.centerX(inView: view)
         alreadyHaveAnAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
+        
+        configureNotificationObservers()
+    }
+    
+    func configureNotificationObservers() {
+        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        fullnameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        usernameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
 }
