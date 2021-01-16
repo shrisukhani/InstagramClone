@@ -13,10 +13,11 @@ class RegistrationController: UIViewController {
     
     private var viewModel: RegistrationViewModel = RegistrationViewModel()
     
-    private let plusImageButton: UIButton = {
+    private lazy var plusImageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo"), for: .normal)
         button.tintColor = .white
+        button.addTarget(self, action: #selector(handleProfilePictureButtonTap), for: .touchUpInside)
         return button
     }()
     
@@ -65,6 +66,14 @@ class RegistrationController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func handleProfilePictureButtonTap(_ button: UIButton) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        
+        present(picker, animated: true, completion: nil)
+    }
+    
     @objc func textDidChange(_ sender: UITextField) {
         if sender == emailTextField {
             viewModel.email = sender.text
@@ -89,6 +98,7 @@ class RegistrationController: UIViewController {
         // plusImageButton
         view.addSubview(plusImageButton)
         plusImageButton.centerX(inView: view)
+        plusImageButton.setDimensions(height: 180, width: 180)
         plusImageButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
         
         // stack
@@ -115,5 +125,23 @@ class RegistrationController: UIViewController {
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         fullnameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         usernameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+        
+        plusImageButton.layer.cornerRadius = plusImageButton.frame.width / 2
+        plusImageButton.layer.masksToBounds = true
+        plusImageButton.layer.borderColor = UIColor.white.cgColor
+        plusImageButton.layer.borderWidth = 2
+        plusImageButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        
+        self.dismiss(animated: true, completion: nil)
     }
 }
