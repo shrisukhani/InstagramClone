@@ -41,6 +41,7 @@ class RegistrationController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1).withAlphaComponent(0.5)
         button.setTitleColor(.init(white: 1, alpha: 0.67), for: .normal)
         button.isEnabled = false
+        button.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
         button.setHeight(50)
         return button
     }()
@@ -88,6 +89,23 @@ class RegistrationController: UIViewController {
         signupButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
         signupButton.backgroundColor = viewModel.buttonBackgroundColor
         signupButton.isEnabled = viewModel.buttonIsEnabled
+    }
+    
+    @objc func handleSignup(_ sender: UITextField) {
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let fullname = fullnameTextField.text,
+              let username = usernameTextField.text,
+              let profileImage = plusImageButton.currentImage else {
+            return
+        }
+        
+        let credentials = AuthCredentials(email: email,
+                                          password: password,
+                                          fullname: fullname,
+                                          username: username,
+                                          profilePicture: profileImage)
+        AuthService.registerUser(withCredentials: credentials)
     }
     
     // MARK: - Helpers
