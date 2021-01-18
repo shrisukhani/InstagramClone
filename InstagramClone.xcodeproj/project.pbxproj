@@ -11,7 +11,9 @@
 		2724725C25B2BE4D00709FA6 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724725B25B2BE4D00709FA6 /* AuthenticationViewModel.swift */; };
 		272863CC25A29FD800D4BBA1 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272863CB25A29FD800D4BBA1 /* FeedController.swift */; };
 		2728AB0A259E5DD7003E5974 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2728AB09259E5DD7003E5974 /* MainTabController.swift */; };
+		2753842F25B382BF001A43A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2753842E25B382BF001A43A5 /* GoogleService-Info.plist */; };
 		2769D63825A2A05A00A05C68 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2769D63725A2A05A00A05C68 /* ProfileController.swift */; };
+		279A695025B51224000E9946 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279A694F25B51224000E9946 /* ImageUploader.swift */; };
 		27B3E91F25A2A0CA00F1B145 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B3E91E25A2A0CA00F1B145 /* SearchController.swift */; };
 		27C2F0F325AFF95E00682276 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C2F0F225AFF95E00682276 /* NotificationController.swift */; };
 		27C2F0F725AFFBF600682276 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C2F0F625AFFBF600682276 /* FeedCell.swift */; };
@@ -32,7 +34,9 @@
 		2724725B25B2BE4D00709FA6 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		272863CB25A29FD800D4BBA1 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		2728AB09259E5DD7003E5974 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		2753842E25B382BF001A43A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2769D63725A2A05A00A05C68 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		279A694F25B51224000E9946 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		27B3E91E25A2A0CA00F1B145 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		27C2F0F225AFF95E00682276 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		27C2F0F625AFFBF600682276 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				27C8CA1E259E5D2600456F54 /* Assets.xcassets */,
 				27C8CA20259E5D2600456F54 /* LaunchScreen.storyboard */,
 				27C8CA23259E5D2600456F54 /* Info.plist */,
+				2753842E25B382BF001A43A5 /* GoogleService-Info.plist */,
 			);
 			path = InstagramClone;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 		27C8CA2D259E5D7000456F54 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				279A694F25B51224000E9946 /* ImageUploader.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27C8CA22259E5D2600456F54 /* LaunchScreen.storyboard in Resources */,
+				2753842F25B382BF001A43A5 /* GoogleService-Info.plist in Resources */,
 				27C8CA1F259E5D2600456F54 /* Assets.xcassets in Resources */,
 				27C8CA1D259E5D2500456F54 /* Main.storyboard in Resources */,
 			);
@@ -296,6 +303,7 @@
 			files = (
 				27C2F10E25B04EE900682276 /* CustomTextField.swift in Sources */,
 				27C2F10525B043F600682276 /* LoginController.swift in Sources */,
+				279A695025B51224000E9946 /* ImageUploader.swift in Sources */,
 				2724725C25B2BE4D00709FA6 /* AuthenticationViewModel.swift in Sources */,
 				27C2F0F725AFFBF600682276 /* FeedCell.swift in Sources */,
 				27C8CA16259E5D2500456F54 /* AppDelegate.swift in Sources */,
