@@ -105,7 +105,16 @@ class RegistrationController: UIViewController {
                                           fullname: fullname,
                                           username: username,
                                           profilePicture: profileImage)
-        AuthService.registerUser(withCredentials: credentials)
+        
+        AuthService.registerUser(withCredentials: credentials) { error in
+            if let error = error {
+                print("DEBUG: Failed to register user: \(error.localizedDescription)")
+                return
+            }
+            
+            print("DEBUG: Successfully Registered User with Firebase")
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Helpers

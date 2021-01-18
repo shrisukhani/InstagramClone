@@ -6,10 +6,21 @@
 //
 
 import UIKit
+import Firebase
 
 private let reusableCellIdentifier = "feedCell"
 
 class FeedController: UICollectionViewController {
+    
+    // MARK: - Properties
+    
+    lazy var logoutButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Logout",
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(handleLogout))
+        return button
+    }()
     
     // MARK: - Lifecycle
     
@@ -19,12 +30,28 @@ class FeedController: UICollectionViewController {
         configureUI()
     }
     
+    // MARK: - Actions
+    
+    @objc func handleLogout(_ sender: UIBarButtonItem) {
+        do {
+            try Auth.auth().signOut()
+            let controller = LoginController()
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        } catch {
+            print("DEBUG: Couldn't log out user: \(error.localizedDescription)")
+        }
+    }
+    
     // MARK: - Helpers
     
     func configureUI() {
         collectionView.register(FeedCell.self,
                                 forCellWithReuseIdentifier: reusableCellIdentifier)
         collectionView.backgroundColor = .white
+        navigationItem.rightBarButtonItem = logoutButton
+        navigationItem.title = "Instagram"
     }
 }
 

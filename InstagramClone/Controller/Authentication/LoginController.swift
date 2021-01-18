@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginController: UIViewController {
     
@@ -55,6 +56,7 @@ class LoginController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1).withAlphaComponent(0.5)
         button.isEnabled = false
         button.setHeight(50)
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         return button
     }()
     
@@ -72,6 +74,23 @@ class LoginController: UIViewController {
         loginButton.isEnabled = viewModel.buttonIsEnabled
         loginButton.backgroundColor = viewModel.buttonBackgroundColor
         loginButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
+    }
+    
+    @objc func handleLogin(_ sender: UIButton) {
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text else {
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("DEBUG: Could not log in: \(error.localizedDescription)")
+                return
+            }
+            
+            print("DEBUG: Logged in successfully: \(String(describing: result))")
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Lifecycle

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabController: UITabBarController {
     // MARK: - Lifecycle Methods
@@ -14,6 +15,8 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
         
         self.configureViewControllers()
+        self.checkIfUserIsLoggedIn()
+        self.logout()
     }
     
     // MARK: - Helpers
@@ -48,5 +51,26 @@ class MainTabController: UITabBarController {
         nav.tabBarItem.selectedImage = selectedImage
         nav.navigationBar.tintColor = .black
         return nav
+    }
+    
+    // MARK: - API
+    
+    func checkIfUserIsLoggedIn() {
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                let controller = LoginController()
+                let nav = UINavigationController(rootViewController: controller)
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func logout() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("DEBUG: Failed to sign out: \(error.localizedDescription)")
+        }
     }
 }
